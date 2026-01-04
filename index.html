@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca FIME - UNAC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primario: #0b1a2a;
+            --secundario: #1e3a5f;
+            --acento: #f39c12;
+            --fondo: #f0f4f8;
+            --blanco: #ffffff;
+            --texto-oscuro: #2c3e50;
+            --success: #25d366;
+            --rojo-soft: #fee2e2;
+            --ambar-soft: #fef3c7;
+            --verde-soft: #dcfce7;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--fondo); 
+            color: var(--texto-oscuro); 
+            scroll-behavior: smooth; 
+        }
+
+        /* Header */
+        .hero { 
+            height: 35vh; 
+            background-image: linear-gradient(rgba(11, 26, 42, 0.9), rgba(30, 58, 95, 0.7)), url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1500'); 
+            background-size: cover; 
+            background-position: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+            text-align: center; 
+            color: white; 
+        }
+        .hero h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); margin: 10px 0; }
+
+        /* Buscador Centrado y Responsivo */
+        .search-container { 
+            width: 90%;
+            max-width: 600px; /* Tamaño ideal en PC */
+            margin: -30px auto 40px; 
+            padding: 0; 
+            position: relative; 
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+        }
+
+        #cursoSearch { 
+            width: 100%; 
+            padding: 15px 25px; 
+            border-radius: 30px; 
+            border: 2px solid transparent; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            font-size: 1rem; 
+            outline: none; 
+            transition: 0.3s; 
+        }
+        #cursoSearch:focus { border-color: var(--acento); }
+
+        /* Contenido */
+        .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .grid-ciclos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .card-ciclo { 
+            background: var(--blanco); 
+            padding: 25px; 
+            border-radius: 20px; 
+            position: relative; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            border-top: 6px solid var(--primario); 
+            transition: 0.3s; 
+        }
+        .card-ciclo h2 { font-size: 1.3rem; margin-top: 0; color: var(--primario); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        
+        .badge { position: absolute; top: 25px; right: 25px; background: #eef2f7; padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; color: var(--secundario); }
+
+        .curso-item { background: #f8fafc; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .curso-item summary { padding: 12px 15px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        .curso-item summary::after { content: '＋'; color: var(--acento); transition: 0.3s; }
+        .curso-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+
+        .links-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 15px; background: white; border-top: 1px solid #edf2f7; }
+        .btn-link { 
+            text-decoration: none; 
+            padding: 10px 2px; 
+            border-radius: 8px; 
+            font-size: 0.65rem; 
+            font-weight: 700; 
+            text-align: center; 
+            transition: 0.2s; 
+            text-transform: uppercase; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-examenes { background: var(--rojo-soft); color: #991b1b; }
+        .btn-libros { background: var(--ambar-soft); color: #92400e; }
+        .btn-clases { background: var(--verde-soft); color: #166534; }
+        .btn-link:hover { filter: brightness(0.9); transform: translateY(-2px); }
+
+        /* Asesoría */
+        .asesoria-box { margin-top: 50px; background: var(--blanco); border: 2px dashed #cbd5e0; padding: 40px; border-radius: 25px; text-align: center; }
+        .btn-whatsapp { display: inline-flex; align-items: center; gap: 10px; background: var(--success); color: white; padding: 12px 30px; text-decoration: none; border-radius: 12px; font-weight: 700; margin-top: 15px; transition: 0.3s; }
+        .btn-whatsapp:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+
+        footer { background: var(--primario); color: white; text-align: center; padding: 30px; margin-top: 60px; font-size: 0.8rem; }
+        
+        @media (max-width: 480px) { 
+            .links-group { grid-template-columns: 1fr; } 
+            .btn-link { flex-direction: row; justify-content: center; padding: 12px; font-size: 0.75rem; } 
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <p style="color: var(--acento); font-weight: bold; letter-spacing: 2px; margin-bottom: 5px;">FIME - UNAC</p>
+            <h1>Repositorio Ingeniería Mecánica</h1>
+            <p>Biblioteca Virtual</p>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="cursoSearch" placeholder="🔍 Buscar curso (ej. Química, Cálculo...)" onkeyup="searchCursos()">
+    </div>
+
+    <main class="container">
+        <div class="grid-ciclos" id="mainGrid">
+            </div>
+
+        <section class="asesoria-box">
+            <h2 style="margin-top:0">¿Necesitas ayuda con algún curso? 🎓</h2>
+            <p>Ofrezco asesorías personalizadas en cursos de carrera, resolución de ejercicios y apoyo en proyectos.</p>
+            <a href="https://wa.me/51929028924" class="btn-whatsapp" target="_blank">
+                <span>Contáctame por WhatsApp</span>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Biblioteca FIME UNAC - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // LINK POR DEFECTO: Si un curso no tiene link, usará este.
+        const LINK_FALLBACK = "https://drive.google.com/drive/folders/TU_CARPETA_PRINCIPAL";
+
+        const mallaCurricular = {
+            "Ciclo I": [
+                { nombre: "Cálculo Diferencial", libros: "https://drive.google.com/drive/folders/1-cU1-DAl6mHh5frFQrVGzXgwnysPHevE?usp=sharing", examenes: "https://drive.google.com/drive/folders/1QcYvQdr6US311BkOux1mRg56eGZ1yIHO?usp=sharing", clases: "https://drive.google.com/drive/folders/1U8MMd9lUt8QYo83x5rNvavouWYLs1tsE?usp=sharing" },
+                { nombre: "Complemento de Matemática", libros: "https://drive.google.com/drive/folders/1MS0nXixC6jAZxz_vgGCSYgPp7lmzZu8K?usp=sharing", examenes: "https://drive.google.com/drive/folders/1QN_SqpNVJR8AAyAlU5UhQfTy2TvHdGKi?usp=sharing", clases: "https://drive.google.com/drive/folders/1Gf6sj-M_1dG3lA54j1C3bEAfybVtHLYb?usp=sharing" },
+                { nombre: "Dibujo Técnico", libros: "https://drive.google.com/drive/folders/1HLFYzPnIOUUSI1VHCq8N-zhzoqh_HOgv?usp=sharing", examenes: "https://drive.google.com/drive/folders/1duxxYAgI5lCp3DnENhsQecMJV4wC_VMx?usp=sharing", clases: "https://drive.google.com/drive/folders/1GHgHdy2X6w9XuR6DB7BVPeab8bYeL0bW?usp=sharing" },
+                { nombre: "Química Aplicada", libros: "https://drive.google.com/drive/folders/12kXh5hU726Jv_UvWXs_OylcowFjcowy8?usp=sharing", examenes: "https://drive.google.com/drive/folders/1c-ENTE-YLqDGeSR1d34kYUiC0M7A1_Np?usp=sharing", clases: "https://drive.google.com/drive/folders/15_Bfe2EclC5hR7Bx1oCVDAj3qAREcPjI?usp=sharing" },
+                { nombre: "Introducción a la Ing. Mecánica", libros: "https://drive.google.com/drive/folders/1I5OEiT_diXgi-r2WgWkz7z9alzB_bMIQ?usp=sharing", examenes: "https://drive.google.com/drive/folders/1S97_Hv4pxjKDPm4MxhEXPAprgltDw6b8?usp=sharing", clases: "https://drive.google.com/drive/folders/10B9Bc3E9RTkfH8L3X_vP_bUG-Ke_d4n6?usp=sharing" },
+                { nombre: "Ética y Resp. Social", libros: "https://drive.google.com/drive/folders/1cHwFlOiB_7Caf9dcGa_m7ULDqP6ra2yt?usp=sharing", examenes: "https://drive.google.com/drive/folders/1N0V3O9uvqsZFUPFPhDOqPIjBqM_22HCM?usp=sharing", clases: "https://drive.google.com/drive/folders/1r6SuZUW_K-cDmfqzuDq-EKxqnyI5lRPY?usp=sharing" }
+            ],
+            "Ciclo II": [
+                { nombre: "Cálculo Integral", libros: "https://drive.google.com/drive/folders/18EFgXB3KAlro5vcFeC1CYs0V3ZkqV5Vd?usp=sharing", examenes: "https://drive.google.com/drive/folders/1K3DaSPkdWSahDWbCJKAUw-sYm1FOXUwT?usp=sharing", clases: "https://drive.google.com/drive/folders/1ZDz0-HwfRf3o01SsHHyt7wkK80TWbg4d?usp=sharing" },
+                { nombre: "Física I", libros: "https://drive.google.com/drive/folders/1J9vy08poPDOFPdg2Uyjyqs7siqUgqNbJ?usp=sharing", examenes: "https://drive.google.com/drive/folders/1r2zCGN2cc4HfYH--naSAVZl_9AKjC7E2?usp=sharing", clases: "https://drive.google.com/drive/folders/1OmgALGLouy64ZG795y6MOObkIWX_uCqC?usp=sharing" },
+                { nombre: "Dibujo Mecánico I", libros: "https://drive.google.com/drive/folders/1ym4ju6kzql7UvdqmSS42XVFaIS5SVB6g?usp=sharing", examenes: "https://drive.google.com/drive/folders/14ktXeT_TwXECCX-MhEa0627iPAYO3hXB?usp=sharing", clases: "https://drive.google.com/drive/folders/1PQfv55zT896pyn0mb0LFiP8LSdMpLgOC?usp=sharing" },
+                { nombre: "Lenguaje de Programación", libros: "https://drive.google.com/drive/folders/18LfOr5P8jMXhc2e8fg7VixokSmTN799m?usp=sharing", examenes: "https://drive.google.com/drive/folders/1WtkWGp_7J3uosn7sVY5_3qwAUlRwA5io?usp=sharing", clases: "https://drive.google.com/drive/folders/1lDcQ4KMfKd8Xx3Iu60VD273r_7YleH9x?usp=sharing" },
+                { nombre: "Ciencia y Técnologia de los Materiales I", libros: "https://drive.google.com/drive/folders/1etInM1NtppPXAF9wB9qjKNSI-Hx37XSM?usp=sharing", examenes: "https://drive.google.com/drive/folders/1r3klFQly8TFCXolOJO0bcvheYnXqlNLm?usp=sharing", clases: "https://drive.google.com/drive/folders/1-RKfnaOhZOQVILn6FsrILDVR_4tPHeH9?usp=sharing" },
+                { nombre: "Métodos y Técnicas de la Ciencia", libros: "https://drive.google.com/drive/folders/1mgmExwy--Vmb98-DSv8QHFJhz9h4V3Os?usp=sharing", examenes: "https://drive.google.com/drive/folders/1w13O7la80j0_g6QTYRIttv4RaBk4SI5_?usp=sharing", clases: "https://drive.google.com/drive/folders/1FA1qwuCkgq5GyzsKpGGzrvGxGGo83SV4?usp=sharing" }
+            ],
+            "Ciclo III": [
+                { nombre: "Cálculo Multivariable", libros: "https://drive.google.com/drive/folders/1AadtdrZ5fToKPO55hzBggVH_lS9cYq7f?usp=sharing", examenes: "https://drive.google.com/drive/folders/1YlfhGCCxedVucuLcTmLk3JfF7QnN_7T1?usp=sharing", clases: "https://drive.google.com/drive/folders/19BaA3MtnYb_J2ExtnaGIlkQr9o9aTi5J?usp=sharing" },
+                { nombre: "Física II", libros: "https://drive.google.com/drive/folders/1oCeGRvFZo1RuO4IZSlpB_-beJqmZqN6n?usp=sharing", examenes: "https://drive.google.com/drive/folders/1COTizFU2GWdZwjhpECHLYE-aukQZZWo_?usp=sharing", clases: "https://drive.google.com/drive/folders/15YOmuLgoB8lUvvMfYIy-xnkmTJCHyWdO?usp=sharing" },
+                { nombre: "Estática", libros: "https://drive.google.com/drive/folders/1xx0qZNjhga1jmhYl2t088EyOYQSuVV_y?usp=sharing", examenes: "https://drive.google.com/drive/folders/1TFhAnsAX0lkm7yiCx3GiNZPDnEMJ_2vn?usp=sharing", clases: "https://drive.google.com/drive/folders/1MaKrUUjQT3WuqcfZK-8uulS3_32pCgGl?usp=sharing" },
+                { nombre: "Dibujo Mecánico II", libros: "https://drive.google.com/drive/folders/1eFu5reHV7xPErB1VnnpOprz5xnO-fsrl?usp=sharing", examenes: "https://drive.google.com/drive/folders/1dKDP5SEMm-U694km9y1SKa3Yv4atALzk?usp=sharing", clases: "https://drive.google.com/drive/folders/1ylDIiJA-33vpNp_BslujzZyD_4bf3Llu?usp=sharing" },
+                { nombre: "Ciencia de los Materiales II", libros: "https://drive.google.com/drive/folders/1GNtEZAFS78EgymfiQRVsHw8m2vvjXW4X?usp=sharing", examenes: "https://drive.google.com/drive/folders/1aaKPddWmItZnYcpY1xfTeJ_B0feK2152?usp=sharing", clases: "https://drive.google.com/drive/folders/1iKSEkHMivmyFuWH3FV4MOgaFbifG8Woh?usp=sharing" },
+                { nombre: "Inglés Técnico", libros: "https://drive.google.com/drive/folders/1LamcFiSVux-vckClquU_K2tIS800GlvZ?usp=sharing", examenes: "https://drive.google.com/drive/folders/1ofWhONOJBnlC7zFgmgAwwzXgeJRaUkME?usp=sharing", clases: "https://drive.google.com/drive/folders/1IDh07P6vy4ZH_nFY2rApcTPlkTge-FGT?usp=sharing" }
+            ],
+            "Ciclo IV": [
+                { nombre: "Ecuaciones Diferenciales", libros: "https://drive.google.com/drive/folders/1CKoENb7L_M8u91oS3obRxmVMLfKKymDU?usp=sharing", examenes: "https://drive.google.com/drive/folders/1Fqa0-ZMIZH24A3-ONrf-cIJq8fWmrOrJ?usp=sharing", clases: "https://drive.google.com/drive/folders/1u4OCuTqnzXupUKIPYYYiU9t65WTYiDlc?usp=sharing" },
+                { nombre: "Física III", libros: "https://drive.google.com/drive/folders/1UTt7FwHBEXd-5VUPboJdtlg_ajke_LhI?usp=sharing", examenes: "https://drive.google.com/drive/folders/1W2W-ECMKVnFrN01rYdRag3G869kPFfEG?usp=sharing", clases: "https://drive.google.com/drive/folders/1V7kfVSXTp1IC4GHZ1dTp63nTmloLztwz?usp=sharing" },
+                { nombre: "Dinámica", libros: "https://drive.google.com/drive/folders/1yDZ2mcbdI3-jTPaZNpaTUknfV3EdSWIy?usp=sharing", examenes: "https://drive.google.com/drive/folders/1gmnbye1z0kG6L_C6xXa8u5FHWfQcEO5x?usp=sharing", clases: "https://drive.google.com/drive/folders/1SN-MPnoGNRZZ5akL4CVTE1QTmkZ-965R?usp=sharing" },
+                { nombre: "Proceso de Manufactura I", libros: "https://drive.google.com/drive/folders/1ebtqcWposI27iDWp9MS46jWdexJ40Fxp?usp=sharing", examenes: "https://drive.google.com/drive/folders/1al4gAONAhet1KGCrAuWhgchO4MoBb5Gg?usp=sharing", clases: "https://drive.google.com/drive/folders/1J_BB7hdHQ3QxmUjnkdK5hn1MNfZmooz8?usp=sharing" },
+                { nombre: "Estadística Aplicada A La Ingenería", libros: "https://drive.google.com/drive/folders/1wMlQT6LFJRba11BHCiRmrEpJfc2axVqK?usp=sharing", examenes: "https://drive.google.com/drive/folders/1rJkBdavx3pKIxBKmEdUZQr67GHnTLC86?usp=sharing", clases: "https://drive.google.com/drive/folders/1odjiPYhz-j54hgg7FbXSun-2NqvjI6kK?usp=sharing" }
+            ],
+            "Ciclo V": [
+                { nombre: "Mecánica de Materiales I", libros: "https://drive.google.com/drive/folders/19l8_JQAh82UeH9adT4AKub0maILecMtd?usp=sharing", examenes: "https://drive.google.com/drive/folders/1qfXU1Z0iLS0z76RT-AziF6ZQ08K-QL72?usp=sharing", clases: "https://drive.google.com/drive/folders/17EpTkFuNzHreZDQR5Cgtr5RPcMXXqspZ?usp=sharing" },
+                { nombre: "Termodinámica I", libros: "https://drive.google.com/drive/folders/1NZVF-in5QrMQAZv9Z0QAl_RUhvU_Uc-L?usp=sharing", examenes: "https://drive.google.com/drive/folders/1FC35pgHZ1bgeQ-kbnGJejM5-1fdvsZ6l?usp=sharing", clases: "https://drive.google.com/drive/folders/1qrF4_Kj-hhFp7HjJfd0tzMi2UvMLGRp0?usp=sharing" },
+                { nombre: "Mecánica de Fluidos I", libros: "https://drive.google.com/drive/folders/1lKYBNEB_LVdXVOAvEKMSONmizlYhEkmE?usp=sharing", examenes: "https://drive.google.com/drive/folders/1oP0Oz9i_09PMgAXqz1GGJNIf6flk2EW6?usp=sharing", clases: "https://drive.google.com/drive/folders/11KXCr3ZDws8wWip5VMdIKeR-ovd7Y8tR?usp=sharing" },
+                { nombre: "Procesos de Manufactura II", libros: "https://drive.google.com/drive/folders/1oicZHJ42kjTMDg9yFMXc_ARVf0Qc1FVc?usp=sharing", examenes: "https://drive.google.com/drive/folders/1ktuB8Tu9K0JglKacBTlMK-gBhQA3Wrtp?usp=sharing", clases: "https://drive.google.com/drive/folders/1VFuhJiFfOzLUhvzbXxg2ln3AKENl7h1w?usp=sharing" },
+                { nombre: "Metodología de la Invest.", libros: "https://drive.google.com/drive/folders/1Owyu3plR77mB96YK_9tt-hnO3wydkeVr?usp=sharing", examenes: "https://drive.google.com/drive/folders/1JizfzOrOF4iHLTXaANmNDf1JdGj9k_7e?usp=sharing", clases: "https://drive.google.com/drive/folders/1Zrhy8n1pnl3U1DeAk5Mv34zlBK0ihaTS?usp=sharing" }
+            ],
+            "Ciclo VI": [
+                { nombre: "Mecánica de Materiales II", libros: "https://drive.google.com/drive/folders/1r0sCgFX54QQ6YWixUOJfLff8oVBc_9vl?usp=sharing", examenes: "https://drive.google.com/drive/folders/1VK69Tt_abXdZVwS4sL8b7kseKvAQ-9CF?usp=sharing", clases: "https://drive.google.com/drive/folders/1bXB8HgVJpSyNLIQk-Rvfs1CCoLHkqQab?usp=sharing" },
+                { nombre: "Termodinámica II", libros: "https://drive.google.com/drive/folders/1rE6YK7Axf6erLYOkXo5tAOQrIfqX-yJT?usp=sharing", examenes: "https://drive.google.com/drive/folders/1uk_Y-9FqfIqVJYzVdry2IQOE4yzhBBOY?usp=sharing", clases: "https://drive.google.com/drive/folders/1jIDAM8udGIkGz5aoaGUkZOryVqfXEqSh?usp=sharing" },
+                { nombre: "Mecánica de Fluidos II", libros: "https://drive.google.com/drive/folders/1G1Wq2GHuqOiAjFEMJdebNsa6W7lWyM8r?usp=sharing", examenes: "https://drive.google.com/drive/folders/14O1muvoRsvdg0DVWNeDMg9TVbL-HfdP9?usp=sharing", clases: "https://drive.google.com/drive/folders/1C7KaBz2JdntZhdg0lDdA95G2USMFKgfb?usp=sharing" },
+                { nombre: "Métodos Númericos", libros: "https://drive.google.com/drive/folders/1btmM936TfNZOAud-FZDFo4xHSLNJYi-9?usp=sharing", examenes: "https://drive.google.com/drive/folders/1OMtas_TaYVkF4I353-gYE_jqOFYin428?usp=sharing", clases: "https://drive.google.com/drive/folders/1J-gmUrJKqsInaGHpM06SHoN0vLmcosKB?usp=sharing" },
+                { nombre: "Circuitos Eléctricos", libros: "https://drive.google.com/drive/folders/1c7r2-sbUYbFKc8JXhAEVG3rerkcw9gmq?usp=sharing", examenes: "https://drive.google.com/drive/folders/1HnJ6oYqnJQ1-T6Ysi39YTh5CLVRItGsU?usp=sharing", clases: "https://drive.google.com/drive/folders/13_PjDmutOtFSLsZ6TvdKRGJeXoYR_fRl?usp=sharing" }
+            ],
+            "Ciclo VII": [
+                { nombre: "Diseño de Elem. de Máq. I", libros: "https://drive.google.com/drive/folders/19Uy9AfZQMw_6ln60748ixQ-Mwx-JdDkY?usp=sharing", examenes: "https://drive.google.com/drive/folders/1sKQoJGaOdBtvw0gtwCf_itLHcIERg0s6?usp=sharing", clases: "https://drive.google.com/drive/folders/1u16m8F74lB2HTluKvqlEA-k_VnlOzfHM?usp=sharing" },
+                { nombre: "Elementos Finitos Apl. a la Ing.", libros: "https://drive.google.com/drive/folders/1tGiuzas5sc2I6-nB7itsSMyTx6UiTRmQ?usp=sharing", examenes: "https://drive.google.com/drive/folders/103W7e_4OdX3EAXSVckITWoU_MlORwuF3?usp=sharing", clases: "https://drive.google.com/drive/folders/1RuEN5JB6IAReHUR4QCbyjxn-cOH87jKy?usp=sharing" },
+                { nombre: "Formulación y Eval. de Proy.", libros: "https://drive.google.com/drive/folders/1xr2Twnbfc_GwIzn599-wmj9ki30QK3qi?usp=sharing", examenes: "https://drive.google.com/drive/folders/175Ka3mizyGO4K4Eu35BDiRbn3NIN4py1?usp=sharing", clases: "https://drive.google.com/drive/folders/17S0Iu_D-cWAjjoNQy1NgGMNQSxhilRV5?usp=sharing" },
+                { nombre: "Máquinas Hidráulicas", libros: "https://drive.google.com/drive/folders/1yJ06jSyIxyOOQhPOIJBia1mvaFxRGFM2?usp=sharing", examenes: "https://drive.google.com/drive/folders/1majSCAjhKpFLUrP8W8C1Y6nuoU05cbKr?usp=sharing", clases: "https://drive.google.com/drive/folders/11bYJG62L-q-Xud7IzG2c1p03lCIEExnQ?usp=sharing" },
+                { nombre: "Motores de Combustión Interna", libros: "https://drive.google.com/drive/folders/1RI0-nGvnUbcDvJBu58niJ-OyqLLMxjM3?usp=sharing", examenes: "https://drive.google.com/drive/folders/12CHVwvlVXa85BtvWyslTVurnXvmfQnsU?usp=sharing", clases: "https://drive.google.com/drive/folders/1i4PQghr1JWse8zhSWBY4qr5GKadSxmUy?usp=sharing" },
+                { nombre: "Transferencia de Calor y Masa", libros: "https://drive.google.com/drive/folders/1oTuZ6d6-KCWv2BJOTszvNOThNJOMaTQv?usp=sharing", examenes: "https://drive.google.com/drive/folders/14CzXOEDaFQCDgbzKfbD1i6xhEOIYH6QD?usp=sharing", clases: "https://drive.google.com/drive/folders/1O3DHCMfN98Tq1GMX0QHdilvoNDcWNxIh?usp=sharing" }
+            ],
+            "Ciclo VIII": [
+                { nombre: "Ingeniería Automotriz", libros: "https://drive.google.com/drive/folders/1YHh5AWf9fAbg08h-qGmH4nqycpWGlYmo?usp=sharing", examenes: "https://drive.google.com/drive/folders/1yTN2SCfM1AlGhKhgS1fz6uRdwkUCrg-g?usp=sharing", clases: "https://drive.google.com/drive/folders/1E23GgIZPXnIu6ndg3ElybZRZSO7XZIlG?usp=sharing" },
+                { nombre: "Ingenienía y Tecnogía de la Sold.", libros: "https://drive.google.com/drive/folders/1trJf8dpEugtzvyWXEFkXPNveE_li2H3I?usp=sharing", examenes: "https://drive.google.com/drive/folders/1REbckuxL_y14woxbHUUu9g3JS3Gn88h4?usp=sharing", clases: "https://drive.google.com/drive/folders/1MvFpEA8KaExviQLKwNAuneeCYqMgaMLv?usp=sharing" },
+                { nombre: "Administración de la Producción", libros: "https://drive.google.com/drive/folders/1oZb-O6KavN43cvufmLtgWd5xiA8QZxUX?usp=sharing", examenes: "https://drive.google.com/drive/folders/1ZrcfCupZBcqx7y6T4WyIuTE3PBZ9UuD9?usp=sharing", clases: "https://drive.google.com/drive/folders/1V7iRa4rEKwBkJmXkc03UKtc4jhiLjqot?usp=sharing" },
+                { nombre: "Diseño de Elementos de Máquina II", libros: "https://drive.google.com/drive/folders/1JxVnaSia3ewfj_wTWymx1K0pRzGF_uvV?usp=sharing", examenes: "https://drive.google.com/drive/folders/1EQtoswAC4gnv3VjvP69AJ7duVSuFiBHB?usp=sharing", clases: "https://drive.google.com/drive/folders/1vxNYF-E18qDLoyxqHcIrQxzcZOXBFdQh?usp=sharing" },
+                { nombre: "Estructuras Metálicas Para Uso Indust.", libros: "https://drive.google.com/drive/folders/1xHnhuceqlCLX91cRQy1ZeE7nsG8y6wq1?usp=sharing", examenes: "https://drive.google.com/drive/folders/1WbUeZF0tg2DVczX_t3-o7uK1mHRkJKhJ?usp=sharing", clases: "https://drive.google.com/drive/folders/1m80NeHLH58VNgeIHd-4wLQ-jpC8ZRAIA?usp=sharing" },
+                { nombre: "Máquinas Eléctricas", libros: "https://drive.google.com/drive/folders/1zN2036cNdCromN_OP1z2ebs4fb_5VINv?usp=sharing", examenes: "https://drive.google.com/drive/folders/1zy_hAL1BRiKlAVsb4rT9TbhTErqLip9p?usp=sharing", clases: "https://drive.google.com/drive/folders/1TEESDISy6twAIfyW3tcge_4NVroC3v6i?usp=sharing" },
+                { nombre: "Prácticas Pre Profesionales", libros: "https://drive.google.com/drive/folders/121VjTfEFI0dtE6aPL1_2efmuRujbMluL?usp=sharing", examenes: "https://drive.google.com/drive/folders/1FdfO04D5g7dhy4L-HMqZNGcrQWyTZIYP?usp=sharing", clases: "https://drive.google.com/drive/folders/1TE4rA3-KNvBrUXoBLe6oEob4gwlgTEan?usp=sharing" },
+                { nombre: "Sistemas Híbridos Industriales", libros: "https://drive.google.com/drive/folders/1yF6u6Tnsh4_bTIWgPIqXng9Evizvsb8n?usp=sharing", examenes: "https://drive.google.com/drive/folders/1bS7Kyu5gJoIpoV-QQM0D5OJxP-O62_ef?usp=sharing", clases: "https://drive.google.com/drive/folders/1bfDYI7SgQtW1kNsXDOoW2vjo9TxC-CMw?usp=sharing" }
+            ],
+            "Ciclo IX": [
+                { nombre: "Gestión y Mantenimiento de Maquinaria Pesada", libros: "https://drive.google.com/drive/folders/14hGIkAnzxladrJ0GlZFjM5beg8VmubPF?usp=sharing", examenes: "https://drive.google.com/drive/folders/1WjQ_1-lsE6aznblVRHGn561k-WSmHLTj?usp=sharing", clases: "https://drive.google.com/drive/folders/1ii6aQAfYYs6V6P_XiZWEpZ9KptyLYP1i?usp=sharing" },
+                { nombre: "Proyecto de Ingeniería Mecánica", libros: "https://drive.google.com/drive/folders/1uRQQpFQSVcfC7dQZ9VNqbGQ3p-Whfnto?usp=sharing", examenes: "https://drive.google.com/drive/folders/1xag0wTOZGlV8hmyEjBcDmYnTJC7iuZUK?usp=sharing", clases: "https://drive.google.com/drive/folders/12JUTViHQNN8i2eBL_ivnUp9DjYUWFfW4?usp=sharing" },
+                { nombre: "Proyecto de Tesis", libros: "https://drive.google.com/drive/folders/1N0bvxFZwCLSTDYaPeppHoTuurJsPciet?usp=sharing", examenes: "https://drive.google.com/drive/folders/1xd06wvmOFDSz-32UwtWmwfaJQAb2fMo-?usp=sharing", clases: "https://drive.google.com/drive/folders/1SyXb3nhHrSHNtAJTHeEIIjm5UCt6TmiI?usp=sharing" },
+                { nombre: "Electrónica Industrial", libros: "https://drive.google.com/drive/folders/1DcnbWtvBNZHI4oEMHVFkhRRD7dO__hVf?usp=sharing", examenes: "https://drive.google.com/drive/folders/131u7ADpQ8GKSwdXQ05xbCr9_rTudc4Yb?usp=sharing", clases: "https://drive.google.com/drive/folders/1iJb64SgZchbgFsdANkxVG2_YSXgYt5cA?usp=sharing" },
+                { nombre: "Fuerza Motriz y Generacion de Energía Electrica", libros: "https://drive.google.com/drive/folders/1xCRVYHRSZDi9v5jcg3vQtAVHxINEWapG?usp=sharing", examenes: "https://drive.google.com/drive/folders/1PIOuX7Y-WZ0-_FRxbqaqT4LuaCQkFUSx?usp=sharing", clases: "https://drive.google.com/drive/folders/1s41_pd552Z0sjO7_Sng3lo-0-64Nw4Uf?usp=sharing" },
+                { nombre: "Instalaciones Electricas Industriales", libros: "https://drive.google.com/drive/folders/1FGHCFj9qVly0qG9fv03VjcvXl166Rqht?usp=sharing", examenes: "https://drive.google.com/drive/folders/1ein7s3eBpgrb_6NDmcbUGafALUKAvVca?usp=sharing", clases: "https://drive.google.com/drive/folders/1fbQz48Rd-sB_gd9JrJlR0E8wzTapKHwY?usp=sharing" },
+                { nombre: "Sistema de Transporte Mecánica y Maquinaria Industrial", libros: "https://drive.google.com/drive/folders/1spPD3IGZgQV8QjRGJBv_Sk0kJZAr-1lW?usp=sharing", examenes: "https://drive.google.com/drive/folders/1Z9N_5aYC9yvFSPGYY3wNiXE_yxztuOo_?usp=sharing", clases: "https://drive.google.com/drive/folders/1d8g3qvqRp-FLchqHwMFHBUF6pxghnP0M?usp=sharing" },
+                { nombre: "Transporte Masivo Sostenible", libros: "https://drive.google.com/drive/folders/1u8APYxMBfMtPSonnpAtl2qsDS0qYrV03?usp=sharing", examenes: "https://drive.google.com/drive/folders/1bXdbtyOT3IZF5C-au_HlzDiQ2lPLY7Hv?usp=sharing", clases: "https://drive.google.com/drive/folders/1B9CVvUA7aZZs98BY520cL2lIsi1PJeb-?usp=sharing" },
+                { nombre: "Vibracion en Maquinaria Industrial", libros: "https://drive.google.com/drive/folders/1Ka4eKMlfJY4pmJ2jf71PG3yIz1kYBuQG?usp=sharing", examenes: "https://drive.google.com/drive/folders/1rPd6UawKloOia3muD2lWe_5Kt-cw2pFF?usp=sharing", clases: "https://drive.google.com/drive/folders/1NkxbqTDIc6kD9g89BvL1XBnfszvjq6Cq?usp=sharing" }
+            ],
+            "Ciclo X": [
+                { nombre: "Sensores y Actuadores Industriales", libros: "https://drive.google.com/drive/folders/1F1yoxoASwWyMIzws6YoY_676MQQDBCLU?usp=sharing", examenes: "https://drive.google.com/drive/folders/1dlmygnej0SJiQXvyX8C-yXcmhAMIN1d_?usp=sharing", clases: "https://drive.google.com/drive/folders/1tQC6rSMfkXLCDvmbZvNAlHSOgAdFf7gQ?usp=sharing" },
+                { nombre: "Asesoramiento de la Calidad de Procesos Instrustriales", libros: "https://drive.google.com/drive/folders/1YhHyIKnJjl646Y4iy252MQvOZ12Np-Xz?usp=sharing", examenes: "https://drive.google.com/drive/folders/17aUuMwyifOuz3q4yi9lre_09Lxdadi9L?usp=sharing", clases: "https://drive.google.com/drive/folders/1r-fursocqeWmYNDFKXC98S25O3A2abyF?usp=sharing" },
+                { nombre: "Automatización de Proyectos Industriales", libros: "https://drive.google.com/drive/folders/1DwViBcI_60DcFbHBPzeTbPTrFbS2_rGu?usp=sharing", examenes: "https://drive.google.com/drive/folders/1KV1wh2Hc871kSlk6aOjFsYk6zSYGw1mp?usp=sharing", clases: "https://drive.google.com/drive/folders/1wrTHucI9cU_v1AjZmt9br8x53am5rXdG?usp=sharing" },
+                { nombre: "Costos y Presupuesto en Procesos Industriales", libros: "https://drive.google.com/drive/folders/18WYvGbsEt9JV7zPlSu-p_KVn8Xs0qYp8?usp=sharing", examenes: "https://drive.google.com/drive/folders/1weV79U4MZyn0PyK9_HZyVMQ7_5KtV7uJ?usp=sharing", clases: "https://drive.google.com/drive/folders/1YDAdYYRhsegBjiqZ5tNVP4raPyMjpSih?usp=sharing" },
+                { nombre: "Desarrollo de Tesis", libros: "https://drive.google.com/drive/folders/1A7O8Xgi6hOZo3zpoM2tv-bv5foR0bfW8?usp=sharing", examenes: "https://drive.google.com/drive/folders/12bcfVWIcMs2hByorXTu5KmorGNsgEf-S?usp=sharing", clases: "https://drive.google.com/drive/folders/1C4iTlCCHMDV2uaSl2FO1K1BQ5cuGMkUk?usp=sharing" },
+                { nombre: "Ingeniería del Mantenimiento", libros: "https://drive.google.com/drive/folders/18tTspeMo7ITPtl-AY65HHFXxjBkxJXIr?usp=sharing", examenes: "https://drive.google.com/drive/folders/11DSEl6fsv6bQf-E21KER_g8lqm0V9Xse?usp=sharing", clases: "https://drive.google.com/drive/folders/10oovxdwRhhdUEO9v31ppYHuDiZmZkzzj?usp=sharing" },
+                { nombre: "Refrigeración y Climatización", libros: "https://drive.google.com/drive/folders/1S2hq-7Bz3K8fENJzuwQc7F_7IYqWBJ2g?usp=sharing", examenes: "https://drive.google.com/drive/folders/1ZscTIb_vk02i38UuFKhO-mnQDxpWLhN-?usp=sharing", clases: "https://drive.google.com/drive/folders/1iVkhaUDBtoCWgtN5aO6_PdH-iyOvEwWB?usp=sharing" },
+                { nombre: "Ventilación Industrial", libros: "https://drive.google.com/drive/folders/1E1SqpplHQkTp9AKZac_4Wj_dhWTq5gUR?usp=sharing", examenes: "https://drive.google.com/drive/folders/1kibZ2fl_3-oT_CDVIRjrlVDOf0IXHdLb?usp=sharing", clases: "https://drive.google.com/drive/folders/1QLFH1DP-V6GN6MYiMYhchN9eU0NpMrQV?usp=sharing" }
+            ]
+        };
+
+        const grid = document.getElementById('mainGrid');
+
+        function renderCursos() {
+            grid.innerHTML = "";
+            for (const [ciclo, cursos] of Object.entries(mallaCurricular)) {
+                let cicloHTML = `
+                    <div class="card-ciclo">
+                        <div class="badge">${ciclo}</div>
+                        <h2>${ciclo}</h2>
+                        <div class="cursos-container">`;
+                
+                cursos.forEach(curso => {
+                    // Si el link está vacío, usa el FALLBACK
+                    const lLibros = curso.libros || LINK_FALLBACK;
+                    const lExamenes = curso.examenes || LINK_FALLBACK;
+                    const lClases = curso.clases || LINK_FALLBACK;
+
+                    cicloHTML += `
+                        <details class="curso-item">
+                            <summary>${curso.nombre}</summary>
+                            <div class="links-group">
+                                <a href="${lExamenes}" target="_blank" class="btn-link btn-examenes"><span>📝</span>Exámenes</a>
+                                <a href="${lLibros}" target="_blank" class="btn-link btn-libros"><span>📚</span>Libros</a>
+                                <a href="${lClases}" target="_blank" class="btn-link btn-clases"><span>🎥</span>Clases</a>
+                            </div>
+                        </details>`;
+                });
+
+                cicloHTML += `</div></div>`;
+                grid.innerHTML += cicloHTML;
+            }
+        }
+
+        function searchCursos() {
+            let input = document.getElementById('cursoSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('card-ciclo');
+            
+            for (let card of cards) {
+                let items = card.getElementsByClassName('curso-item');
+                let hasVisibleCurso = false;
+                
+                for (let item of items) {
+                    let name = item.getElementsByTagName('summary')[0].innerText.toLowerCase();
+                    if (name.includes(input)) {
+                        item.style.display = "";
+                        hasVisibleCurso = true;
+                    } else {
+                        item.style.display = "none";
+                    }
+                }
+                card.style.display = hasVisibleCurso ? "" : "none";
+            }
+        }
+
+        renderCursos();
+    </script>
+</body>
+</html>
